@@ -20,4 +20,4 @@ recognizes predefined images only.
 
 #### List of images
 
-![List of images](signs.png)
+![List of images](signs.jpg)
