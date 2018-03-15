@@ -17,3 +17,7 @@ You can see script in action at YT: https://youtu.be/n4QAYV8Q2rs
 
 This is not the way real computer vision works, but just a simple script which
 recognizes predefined images only.
+
+#### List of images
+
+![List of images](signs.png)
