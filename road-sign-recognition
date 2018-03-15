@@ -10,7 +10,8 @@ def get_dominant_color(image, n_colors):
     pixels = np.float32(image).reshape((-1, 3))
     criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 200, .1)
     flags = cv.KMEANS_RANDOM_CENTERS
-    flags, labels, centroids = cv.kmeans(pixels, n_colors, None, criteria, 10, flags)
+    flags, labels, centroids = cv.kmeans(
+        pixels, n_colors, None, criteria, 10, flags)
     palette = np.uint8(centroids)
     return palette[np.argmax(itemfreq(labels)[:, -1])]
 
@@ -22,7 +23,7 @@ def onMouse(event, x, y, flags, param):
         clicked = True
 
 
-cameraCapture = cv.VideoCapture(0) # Put here ID of your camera (/dev/videoN)
+cameraCapture = cv.VideoCapture(0)  # Put here ID of your camera (/dev/videoN)
 cv.namedWindow('camera')
 cv.setMouseCallback('camera', onMouse)
 
@@ -45,7 +46,8 @@ while success and not clicked:
     # increasing this parameter too much may prevent detection of some circles.
     # Increasing param1 increases count of detected circles. Increasing param2
     # drops more false circles.
-    circles = cv.HoughCircles(img, cv.HOUGH_GRADIENT, 1, 50, param1=120, param2=40)
+    circles = cv.HoughCircles(img, cv.HOUGH_GRADIENT,
+                              1, 50, param1=120, param2=40)
 
     if not circles is None:
         circles = np.uint16(np.around(circles))
@@ -63,7 +65,6 @@ while success and not clicked:
             square = frame[y-r:y+r, x-r:x+r]
 
             dominant_color = get_dominant_color(square, 2)
-
             if dominant_color[2] > 100:
                 # Stop sign is red, so we check if there is a lot of red color
                 # in circle.
@@ -73,13 +74,16 @@ while success and not clicked:
 
                 # Here we cut 3 zones from the circle, then count their
                 # dominant color and finally compare.
-                zone_0 = square[square.shape[0]*3//8:square.shape[0]*5//8, square.shape[1]*1//8:square.shape[1]*3//8]
+                zone_0 = square[square.shape[0]*3//8:square.shape[0]
+                                * 5//8, square.shape[1]*1//8:square.shape[1]*3//8]
                 zone_0_color = get_dominant_color(zone_0, 1)
 
-                zone_1 = square[square.shape[0]*1//8:square.shape[0]*3//8, square.shape[1]*3//8:square.shape[1]*5//8]
+                zone_1 = square[square.shape[0]*1//8:square.shape[0]
+                                * 3//8, square.shape[1]*3//8:square.shape[1]*5//8]
                 zone_1_color = get_dominant_color(zone_1, 1)
 
-                zone_2 = square[square.shape[0]*3//8:square.shape[0]*5//8, square.shape[1]*5//8:square.shape[1]*7//8]
+                zone_2 = square[square.shape[0]*3//8:square.shape[0]
+                                * 5//8, square.shape[1]*5//8:square.shape[1]*7//8]
                 zone_2_color = get_dominant_color(zone_2, 1)
 
                 if zone_1_color[2] < 60:
@@ -96,7 +100,6 @@ while success and not clicked:
                         print("FORWARD AND RIGHT")
             else:
                 print("N/A")
-
 
         # Draw all detected circles on the screen
         for i in circles[0, :]:
