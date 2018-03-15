@@ -10,3 +10,10 @@ signs. I use circle detection and orient on dominant color of zones.
 
 I publish it here and hope it would be useful for someone, like a quick start
 learning computer vision.
+
+You can see script in action at YT: https://youtu.be/n4QAYV8Q2rs
+
+## Warning
+
+This is not the way real computer vision works, but just a simple script which
+recognizes predefined images only.
