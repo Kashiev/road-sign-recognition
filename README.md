@@ -18,6 +18,14 @@ You can see script in action at YT: https://youtu.be/n4QAYV8Q2rs
 This is not the way real computer vision works, but just a simple script which
 recognizes predefined images only.
 
+## Why is it so bad?
+
+There is some chance of unwanted circle detection. After calculation of its
+dominant color script may erroneously parse it as a road sign and report
+incorrect result. Also road sign would never be detected at a pretty big angle
+(>15 degrees are enough). These disadvantages are not the only ones here. Just
+keep in mind I publish script just in educational purposes.
+
 #### List of images
 
 ![List of images](signs.jpg)
