@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Read given video files and compress them into one neat MKV container to be
+# used with OpenCV
+
+if [ $# -eq 0 ]; then
+	echo "Usage: $0 <files>" >&2
+	exit 1
+fi
+
+printf "file '%s'\n" "$@" > concat.txt
+
+ffmpeg -y -f concat -i concat.txt \
+	-vf "crop=ih/3*4:ih" \
+	-c:v libx265 -crf 32 -preset slow \
+	-r 23.976 -s 640x480 -an \
+	sample.mkv
+
+rm concat.txt
