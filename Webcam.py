@@ -1,4 +1,5 @@
 import cv2
+import os
 
 
 class Webcam:
@@ -7,8 +8,37 @@ class Webcam:
 
 
     def get_possible_resolutions(self):
-        # TODO: Should use V4L2 or test some known resolutions
-        pass
+        import v4l2
+        from fcntl import ioctl
+
+        fd = os.open("/dev/video0", os.O_RDWR)
+
+        fmt = v4l2.v4l2_fmtdesc()
+        fmt.type = v4l2.V4L2_BUF_TYPE_VIDEO_CAPTURE
+
+        formats = []
+
+        while True:
+            try:
+                ioctl(fd, v4l2.VIDIOC_ENUM_FMT, fmt)
+            except OSError:
+                break
+
+            frm = v4l2.v4l2_frmsizeenum()
+            frm.pixel_format = fmt.pixelformat
+
+            while True:
+                try:
+                    ioctl(fd, v4l2.VIDIOC_ENUM_FRAMESIZES, frm)
+                except OSError:
+                    break
+
+                frm.index += 1
+                formats.append((fmt.description, (frm.discrete.width, frm.discrete.height)))
+
+            fmt.index += 1
+
+        return formats
 
 
     def get_possible_framerates(self):
