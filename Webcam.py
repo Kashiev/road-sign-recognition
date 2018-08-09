@@ -18,6 +18,7 @@ class Webcam:
 
         formats = []
 
+        # Special thanks to @Rirush for this solution
         while True:
             try:
                 ioctl(fd, v4l2.VIDIOC_ENUM_FMT, fmt)
