@@ -75,3 +75,11 @@ class Webcam:
         if framerate != self.get_effective_framerate():
             self.set_framerate(previous_framerate)
             raise ValueError("Framerate not supported by camera.")
+
+
+    def next_frame(self):
+        status, frame = self.cam.read()
+        if status:
+            return frame
+        else:
+            raise IOError("Could not get frame")
