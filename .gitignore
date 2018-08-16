@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# exclude media files
+*.mp4
+*.mkv
+*.mov
+*.y4m
