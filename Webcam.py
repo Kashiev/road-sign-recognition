@@ -4,7 +4,7 @@ import os
 
 class Webcam:
     def __init__(self, device_id=0):
-        self.cam = cv2.VideoCapture(device_id)
+        self.__cam = cv2.VideoCapture(device_id)
 
 
     def get_possible_resolutions(self):
@@ -48,19 +48,19 @@ class Webcam:
 
 
     def get_effective_resolution(self):
-        return (int(self.cam.get(cv2.CAP_PROP_FRAME_WIDTH)),
-                int(self.cam.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+        return (int(self.__cam.get(cv2.CAP_PROP_FRAME_WIDTH)),
+                int(self.__cam.get(cv2.CAP_PROP_FRAME_HEIGHT)))
 
 
     def get_effective_framerate(self):
-        return int(self.cam.get(cv2.CAP_PROP_FPS))
+        return int(self.__cam.get(cv2.CAP_PROP_FPS))
 
 
     def set_resolution(self, width, height):
         previous_resolution = self.get_effective_resolution()
 
-        self.cam.set(cv2.CAP_PROP_FRAME_WIDTH, width)
-        self.cam.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+        self.__cam.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+        self.__cam.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
         if (width, height) != self.get_effective_resolution():
             self.set_resolution(*previous_resolution)
@@ -70,7 +70,7 @@ class Webcam:
     def set_framerate(self, framerate):
         previous_framerate = self.get_effective_framerate()
 
-        self.cam.set(cv2.CAP_PROP_FPS, framerate)
+        self.__cam.set(cv2.CAP_PROP_FPS, framerate)
 
         if framerate != self.get_effective_framerate():
             self.set_framerate(previous_framerate)
@@ -78,7 +78,7 @@ class Webcam:
 
 
     def next_frame(self):
-        status, frame = self.cam.read()
+        status, frame = self.__cam.read()
         if status:
             return frame
         else:
