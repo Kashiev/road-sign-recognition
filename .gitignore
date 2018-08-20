@@ -108,3 +108,6 @@ venv.bak/
 *.mkv
 *.mov
 *.y4m
+
+# also exclude special folder where I keep samples
+samples/
