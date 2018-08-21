@@ -4,7 +4,17 @@ import os
 
 class Webcam:
     def __init__(self, device_id=0):
-        self.__cam = cv2.VideoCapture(device_id)
+        if type(device_id) == int:
+            self.__device_path = f"/dev/video{device_id}"
+        elif type(device_id) == str:
+            self.__device_path = device_id
+        else:
+            raise ValueError(f"Unkmown device {device_id}")
+
+        if not os.path.exists(self.__device_path):
+            raise FileNotFoundError(self.__device_path)
+
+        self.__cam = cv2.VideoCapture(self.__device_path)
 
 
     def get_possible_resolutions(self):
