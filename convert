@@ -8,6 +8,12 @@ if [ $# -eq 0 ]; then
 	exit 1
 fi
 
+if [ -f sample.mkv ]; then
+	echo "Error: output file already exists" >&2
+	exit 1
+fi
+
+
 printf "file '%s'\n" "$@" > concat.txt
 
 ffmpeg -y -f concat -i concat.txt \
