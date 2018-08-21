@@ -21,7 +21,7 @@ class Webcam:
         import v4l2
         from fcntl import ioctl
 
-        fd = os.open("/dev/video0", os.O_RDWR)
+        fd = os.open(self.__device_path, os.O_RDWR)
 
         fmt = v4l2.v4l2_fmtdesc()
         fmt.type = v4l2.V4L2_BUF_TYPE_VIDEO_CAPTURE
