@@ -49,6 +49,7 @@ class Webcam:
 
             fmt.index += 1
 
+        os.close(fd)
         return formats
 
 
