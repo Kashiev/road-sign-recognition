@@ -19,7 +19,7 @@ printf "file '%s'\n" "$@" > concat.txt
 ffmpeg -y -f concat -i concat.txt \
 	-vf "crop=ih/3*4:ih" \
 	-c:v libx265 -crf 32 -preset slow \
-	-tune fastdecode
+	-tune fastdecode \
 	-r 23.976 -s 640x480 -an \
 	sample.mkv
 
