@@ -22,10 +22,8 @@ class Webcam:
         from fcntl import ioctl
 
         fd = os.open(self.__device_path, os.O_RDWR)
-
         fmt = v4l2.v4l2_fmtdesc()
         fmt.type = v4l2.V4L2_BUF_TYPE_VIDEO_CAPTURE
-
         formats = []
 
         # Special thanks to @Rirush for this solution
@@ -34,7 +32,6 @@ class Webcam:
                 ioctl(fd, v4l2.VIDIOC_ENUM_FMT, fmt)
             except OSError:
                 break
-
             frm = v4l2.v4l2_frmsizeenum()
             frm.pixel_format = fmt.pixelformat
 
@@ -43,7 +40,6 @@ class Webcam:
                     ioctl(fd, v4l2.VIDIOC_ENUM_FRAMESIZES, frm)
                 except OSError:
                     break
-
                 frm.index += 1
                 formats.append((fmt.description, (frm.discrete.width, frm.discrete.height)))
 
