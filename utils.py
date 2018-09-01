@@ -90,3 +90,8 @@ class Webcam:
             return frame
         else:
             raise IOError("Could not get frame")
+
+
+    def close(self):
+        self.__cam.release()
+        del(self.__cam)
