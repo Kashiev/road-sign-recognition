@@ -10,5 +10,9 @@ if (640, 480) in cam.get_possible_resolutions():
 
 while True:
     cv2.waitKey(1)
-    frame = cam.next_frame()
+    try:
+        frame = cam.next_frame()
+    except:
+        cam.close()
+        exit(1)
     cv2.imshow('original', frame)
