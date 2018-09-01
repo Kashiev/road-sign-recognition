@@ -24,7 +24,7 @@ class Webcam:
         fd = os.open(self.__device_path, os.O_RDWR)
         fmt = v4l2.v4l2_fmtdesc()
         fmt.type = v4l2.V4L2_BUF_TYPE_VIDEO_CAPTURE
-        formats = []
+        resolutions = set()
 
         # Special thanks to @Rirush for this solution
         while True:
@@ -41,12 +41,12 @@ class Webcam:
                 except OSError:
                     break
                 frm.index += 1
-                formats.append((fmt.description, (frm.discrete.width, frm.discrete.height)))
+                resolutions.add((frm.discrete.width, frm.discrete.height))
 
             fmt.index += 1
 
         os.close(fd)
-        return formats
+        return resolutions
 
 
     def get_possible_framerates(self):
